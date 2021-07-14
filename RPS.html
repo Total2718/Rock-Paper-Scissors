@@ -9,10 +9,12 @@
   <script>
       function computerPlay(){
           //random number 1-3 is generated 
-          // rock, paper, scissors corresponds to 1,2, 3 respectivley
+          // rock, paper, scissors corresponds to 1,2,3 respectively
         compChoice = Math.floor((Math.random() * 3)+1); 
         
-        console.log(compChoice);
+        //series of else if statements pairing the random number to 
+        // the 3 different choices in rock paper scissors
+        
         if (compChoice == 1){
             shoot = 'Rock';
         }
@@ -24,13 +26,85 @@
             shoot = 'Scissors';
         }
         return shoot;
-      }
+      };
 
 
       computerShoot = computerPlay();
       console.log(computerShoot);
+      
+      let resultRecord ;
+      function playRound(playerSelection, computerSelection){
+         
+        //the player selection is changed to have the first letter uppercase
+        // and the rest of the string lowercase so that any input can be standardized given correct spelling
+        // but differing capitalization
+        playerSelection = playerSelection[0].toUpperCase() + playerSelection.slice(1).toLowerCase();
+        
+        resultRecord = 3;
+        //this if statement accounts for when both the computer and the player pick the same choice
+        if (playerSelection == computerSelection){
+          
+          result = 'Draw';
+          console.log(result);
+          resultRecord = 0;
+        }
+        //this else if accounts for when the player loses
+        else if((playerSelection == 'Rock' && computerSelection == 'Paper' ) || 
+        (playerSelection == 'Scissors' && computerSelection == 'Rock') ||
+        (playerSelection == 'Paper' && computerSelection == 'Scissors')){
 
+          result = `You lose! ${computerSelection} beats ${playerSelection}`;
+          console.log(result);
+          resultRecord = 1;
+        }
+        // this else if accounts for when the player wins
+        else if ((playerSelection == 'Paper' && computerSelection == 'Rock') || 
+        (playerSelection == 'Scissors' && computerSelection == 'Paper') || 
+        (playerSelection == 'Rock' && computerSelection == 'Scissors')){
 
+          result = `You win! ${playerSelection} beats ${computerSelection}`;
+          console.log(result);
+          resultRecord = 2;
+          
+        }
+          alert(result);
+          console.log(resultRecord);
+      };
+      //defining these outside the game function so they can be referenced and incremented accordingly
+      let playerRecord = 0;
+       let computerRecord =0;
+      //game function runs the playround multiple times until while loop is broken
+     function game(){
+       //these are score variable to keep track of the number of wins
+       let playerRecord = 0;
+       let computerRecord = 0;
+       //this loop won't break until one of the two players reahces 5 wins 
+       while (playerRecord != 5 && computerRecord != 5) {
+      playerChoice = prompt('Please enter Rock, Paper, or Scissors:', );
+      playRound(playerChoice, computerPlay());
+      if (resultRecord == 2){
+        playerRecord++;
+
+      }
+      if (resultRecord == 1){
+        computerRecord++;
+      }
+      console.log(playerRecord);
+      console.log(computerRecord);
+      } 
+
+      //first to reach 5 total wins will win the overall game
+      if(playerRecord == 5){
+        alert('Congratulations Winner!!!');
+      }
+      else if(computerRecord == 5){
+        alert('The computer has won. Good luck next time.');
+      }
+     
+     
+
+     };
+     play = game();
 
   </script>
 </body>
