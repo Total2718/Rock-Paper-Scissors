@@ -2,11 +2,19 @@
 <html>
 <head>
   <meta charset="utf-8">
-  
+ 
+  <div id = "button_container">
+    <button id="rock" value = "Rock">Rock</button>
+    <button id="paper" value = "Paper">Paper</button>
+    <button id="scissors" value = "Scissors">Scissors</button>
+  </div>
 </head>
 <body>
 
-  <script>
+  <script defer>
+   
+
+
       function computerPlay(){
           //random number 1-3 is generated 
           // rock, paper, scissors corresponds to 1,2,3 respectively
@@ -29,16 +37,14 @@
       };
 
 
-      computerShoot = computerPlay();
-      console.log(computerShoot);
+     
       
-      let resultRecord ;
+      let resultRecord;
       function playRound(playerSelection, computerSelection){
+ 
          
-        //the player selection is changed to have the first letter uppercase
-        // and the rest of the string lowercase so that any input can be standardized given correct spelling
-        // but differing capitalization
-        playerSelection = playerSelection[0].toUpperCase() + playerSelection.slice(1).toLowerCase();
+       
+        
         
         resultRecord = 3;
         //this if statement accounts for when both the computer and the player pick the same choice
@@ -68,43 +74,69 @@
           
         }
           alert(result);
-          console.log(resultRecord);
+       
+          
       };
-      //defining these outside the game function so they can be referenced and incremented accordingly
-      let playerRecord = 0;
-       let computerRecord =0;
-      //game function runs the playround multiple times until while loop is broken
-     function game(){
-       //these are score variable to keep track of the number of wins
-       let playerRecord = 0;
-       let computerRecord = 0;
-       //this loop won't break until one of the two players reahces 5 wins 
-       while (playerRecord != 5 && computerRecord != 5) {
-      playerChoice = prompt('Please enter Rock, Paper, or Scissors:', );
-      playRound(playerChoice, computerPlay());
-      if (resultRecord == 2){
-        playerRecord++;
 
-      }
-      if (resultRecord == 1){
-        computerRecord++;
-      }
-      console.log(playerRecord);
-      console.log(computerRecord);
-      } 
+
+
+    
+    let playerRecord = 0;
+    let computerRecord = 0;
+    let playerChoice;
+
+        // buttons is a node list. It looks and acts much like an array.
+        const buttons = document.querySelectorAll('button');
+        // we use the .forEach method to iterate through each button
+        buttons.forEach((button) => {
+          
+        // and for each one we add a 'click' listener
+        button.addEventListener('click', () => {
+          playerChoice = button.value;
+          console.log(`You chose ${playerChoice}!`);
+          
+          playRound(playerChoice, computerPlay());
+          game();
+        });
+        });
+
+  function game(){
+    let winLimit = 1;
+    if (resultRecord == 2){
+          playerRecord++;
+          console.log('PlayerScore:');
+          console.log(playerRecord);
+        }
+    if (resultRecord == 1){
+          computerRecord++;
+        }
+        console.log('ComputerScore');
+        console.log(computerRecord);
+      
 
       //first to reach 5 total wins will win the overall game
-      if(playerRecord == 5){
+      if(playerRecord == winLimit){
         alert('Congratulations Winner!!!');
       }
-      else if(computerRecord == 5){
+      else if(computerRecord == winLimit){
         alert('The computer has won. Good luck next time.');
       }
-     
+    }
      
 
-     };
-     play = game();
+     
+
+    
+
+
+
+    
+
+
+       
+     
+
+
 
   </script>
 </body>
