@@ -3,16 +3,16 @@
 <head>
   <meta charset="utf-8">
  
+  
+</head>
+<body>
   <div id = "button_container">
     <button id="rock" value = "Rock">Rock</button>
     <button id="paper" value = "Paper">Paper</button>
     <button id="scissors" value = "Scissors">Scissors</button>
   </div>
-</head>
-<body>
-
   <script defer>
-   
+
 
 
       function computerPlay(){
@@ -36,8 +36,10 @@
         return shoot;
       };
 
-
-     
+      
+      let playerRecord = 0;
+      let computerRecord = 0;
+      
       
       let resultRecord;
       function playRound(playerSelection, computerSelection){
@@ -81,8 +83,7 @@
 
 
     
-    let playerRecord = 0;
-    let computerRecord = 0;
+    
     let playerChoice;
 
         // buttons is a node list. It looks and acts much like an array.
@@ -97,19 +98,24 @@
           
           playRound(playerChoice, computerPlay());
           game();
+          updateScore();
+          
         });
         });
-
+let scoreBoardText = `Player: ${playerRecord}   Computer: ${computerRecord} `;
   function game(){
-    let winLimit = 1;
+    let winLimit = 3;
     if (resultRecord == 2){
           playerRecord++;
-          console.log('PlayerScore:');
-          console.log(playerRecord);
+          
         }
+        
     if (resultRecord == 1){
           computerRecord++;
         }
+        console.log('PlayerScore:');
+          console.log(playerRecord);
+        
         console.log('ComputerScore');
         console.log(computerRecord);
       
@@ -117,12 +123,35 @@
       //first to reach 5 total wins will win the overall game
       if(playerRecord == winLimit){
         alert('Congratulations Winner!!!');
+        playerRecord = 0;
+        computerRecord = 0;
       }
       else if(computerRecord == winLimit){
         alert('The computer has won. Good luck next time.');
+        playerRecord = 0;
+        computerRecord = 0;
       }
     }
-     
+    
+const scoreBoardContainer = document.createElement('div');
+scoreBoardContainer.classList.add('scores');
+const scoreBoard = document.createElement("div");
+scoreBoard.textContent = `Player: ${playerRecord}   Computer: ${computerRecord} ` ;
+const body = document.querySelector('body');
+const buttonContainer = document.querySelector('#button_container');
+scoreBoardContainer.appendChild(scoreBoard);
+body.insertBefore(scoreBoardContainer, buttonContainer);
+
+
+function updateScore(){
+
+  scoreBoard.innerHTML = `Player: ${playerRecord}   Computer: ${computerRecord} `;
+};
+
+
+
+
+
 
      
 
